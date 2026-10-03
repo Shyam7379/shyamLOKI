@@ -1,233 +1,259 @@
 /* =============================================================================
-   ABOUT — the person behind the timeline
-   Two columns on desktop: the story, and the branch that produced it.
+   ABOUT — Cinematic Dark Editorial / Swiss Brutalist
+   Full-bleed atmospheric green halftone portrait background with layered scrims,
+   high-contrast Swiss typography, and education credentials.
    ============================================================================= */
 
-.about {
-  background:
-    radial-gradient(90% 60% at 88% 0%, rgba(28, 125, 91, 0.1) 0%, transparent 58%),
-    var(--c-void);
-}
-
-.about__grid {
-  display: grid;
-  gap: clamp(2.5rem, 5vw, 4.5rem);
-  align-items: start;
-}
-
-.about__copy {
-  display: grid;
-  gap: var(--s-7);
-}
-
-.about__prose {
-  display: grid;
-  gap: var(--s-5);
-  max-width: var(--w-prose);
-  color: var(--c-text);
-}
-
-.about__prose strong {
-  color: var(--c-ivory);
-  font-weight: 600;
-}
-
-/* The first paragraph leads; give it a touch more presence. */
-.about__prose p:first-child {
-  font-size: var(--fs-lead);
-  color: var(--c-ivory-soft);
-}
-
-/* ── Fact strip ──────────────────────────────────────────────────────────── */
-.about__facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
-  gap: var(--s-1) var(--s-5);
-  padding-block-start: var(--s-5);
-  border-block-start: 1px solid var(--line-hair);
-}
-
-.about__fact {
-  display: grid;
-  gap: 0.15rem;
-  padding-block: var(--s-3);
-}
-
-.about__fact dt {
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--c-text-faint);
-}
-
-.about__fact dd {
-  font-size: 0.94rem;
-  color: var(--c-ivory);
-}
-
-/* ── The branch column ───────────────────────────────────────────────────── */
-.about__branch {
-  /* Distance from the column edge to the node cards. The trunk sits at 5px. */
-  --rail-gap: clamp(1.75rem, 4vw, 2.5rem);
+/* ── Section Container ───────────────────────────────────────────────────── */
+.about-editorial {
   position: relative;
-  display: grid;
-  gap: var(--s-6);
-  padding-inline-start: var(--rail-gap);
+  background: var(--c-void, #04070a);
+  padding-block: clamp(5.5rem, 11vw, 9.5rem) clamp(2.5rem, 5vw, 4rem);
+  min-height: min(100vh, 55rem);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: var(--c-ivory, #ece7dc);
 }
 
-/* The trunk: a hairline that starts as emerald and cools to gold as it
-   descends past the education and internship nodes. */
-.about__branch::before {
-  content: '';
-  position: absolute;
-  inset-block: 1.5rem 3rem;
-  inset-inline-start: 5px;
-  inline-size: 1px;
-  background: linear-gradient(
-    to bottom,
-    rgba(47, 168, 122, 0) 0%,
-    rgba(47, 168, 122, 0.5) 12%,
-    rgba(47, 168, 122, 0.4) 55%,
-    rgba(191, 159, 93, 0.34) 100%
-  );
-  pointer-events: none;
+/* Disable default section::after rule */
+.about-editorial::after {
+  display: none !important;
 }
 
-.about__slot {
-  position: relative;
-}
-
-/* A node on the trunk, one per moment that shaped the work.
-   `5px - var(--rail-gap)` puts the dot's centre exactly on the 5px rail once
-   the -50% translate is applied, independent of the gap clamp. */
-.about__dot {
-  position: absolute;
-  inset-block-start: 1.55rem;
-  inset-inline-start: calc(5px - var(--rail-gap));
-  transform: translateX(-50%);
-  inline-size: 0.66rem;
-  block-size: 0.66rem;
-  border-radius: var(--r-pill);
-  background: var(--c-charcoal-raised);
-  border: 1px solid var(--line-hair-strong);
-  box-shadow: 0 0 0 4px var(--c-void);
-}
-
-.about__dot--emerald {
-  background: var(--c-emerald-bright);
-  border-color: var(--c-emerald-bright);
-  box-shadow: 0 0 0 4px var(--c-void), 0 0 0 8px var(--glow-emerald-soft);
-}
-
-.about__portrait {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--r-4);
-}
-
-.about__portrait img {
-  /* The portrait is naturally a portrait crop; keep the face in frame. */
-  object-position: center 22%;
-  /* Pulled towards the site palette so a bright indoor snapshot sits inside a
-     near-black emerald page instead of fighting it. Nothing is painted over
-     his face — no compositing, no generated detail. */
-  filter: saturate(0.74) contrast(1.08) brightness(0.82);
-}
-
-/* Emerald vignette + bottom falloff, blended normally so the likeness is
-   untouched where it matters. */
-.about__portrait::before {
-  content: '';
+/* ── Full-Bleed Background Layer ─────────────────────────────────────────── */
+.about-editorial__bg-wrap {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(120% 90% at 50% 6%, rgba(28, 125, 91, 0.26) 0%, transparent 58%),
-    radial-gradient(130% 100% at 50% 50%, transparent 42%, rgba(4, 7, 10, 0.72) 100%);
+  overflow: hidden;
 }
 
-.about__portrait-cap {
+.about-editorial__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  opacity: 0.85;
+  filter: saturate(1.1) contrast(1.1) brightness(0.85);
+  transform: scale(1.02);
+}
+
+/* Multi-directional gradient scrim for pristine typography legibility */
+.about-editorial__scrim {
   position: absolute;
-  inset-inline: 0;
-  inset-block-end: 0;
-  z-index: 2;
-  display: grid;
-  gap: 0.2rem;
-  padding: var(--s-6) var(--s-5) var(--s-5);
-  background: linear-gradient(to top, rgba(4, 7, 10, 0.94) 0%, rgba(4, 7, 10, 0.6) 52%, transparent 100%);
+  inset: 0;
+  background:
+    /* Left-to-right gradient: deep dark on left for text, opening up to highlight portrait on right */
+    linear-gradient(
+      to right,
+      rgba(4, 7, 10, 0.98) 0%,
+      rgba(4, 7, 10, 0.92) 36%,
+      rgba(4, 7, 10, 0.65) 60%,
+      rgba(4, 7, 10, 0.15) 75%,
+      rgba(4, 7, 10, 0.45) 100%
+    ),
+    /* Vertical vignette */
+    linear-gradient(
+      to bottom,
+      rgba(4, 7, 10, 0.9) 0%,
+      transparent 18%,
+      transparent 78%,
+      rgba(4, 7, 10, 0.95) 100%
+    );
 }
 
-.about__portrait-name {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--c-ivory);
+/* Ambient emerald backlight glow concentrated on the portrait area */
+.about-editorial__ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 84% 32%,
+    rgba(47, 168, 122, 0.28) 0%,
+    rgba(28, 125, 91, 0.1) 48%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
 }
 
-.about__portrait-role {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--c-emerald-bright);
+/* Edge blend transitions for smooth scroll narrative between sections */
+.about-editorial__edge-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(5rem, 10vw, 8rem);
+  background: linear-gradient(to bottom, var(--c-void, #04070a) 0%, transparent 100%);
 }
 
-/* ── Education / internship nodes ───────────────────────────────────────── */
-.about__node {
+.about-editorial__edge-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: clamp(6rem, 12vw, 9rem);
+  background: linear-gradient(to top, var(--c-void, #04070a) 0%, transparent 100%);
+}
+
+/* ── Content Shell ───────────────────────────────────────────────────────── */
+.about-editorial__shell {
   position: relative;
-  padding: clamp(1.2rem, 2.2vw, 1.75rem);
+  z-index: 2;
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 5vw, 4rem);
 }
 
-.about__node-label {
-  gap: var(--s-2);
-  color: var(--c-gold);
-  margin-block-end: var(--s-3);
+/* ── Top Header Strip ────────────────────────────────────────────────────── */
+.about-editorial__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block-end: clamp(1.25rem, 2vw, 1.75rem);
+  margin-block-end: clamp(2.5rem, 4.5vw, 4rem);
+  border-block-end: 1px solid rgba(191, 159, 93, 0.2);
 }
 
-.about__node-title {
-  font-size: 1.06rem;
-  line-height: 1.35;
-  letter-spacing: 0.015em;
-}
-
-.about__node-meta {
-  margin-block-start: 0.35rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: var(--ls-wide);
+.about-editorial__label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--c-emerald-bright);
+  color: var(--c-gold-bright, #e5cd94);
 }
 
-.about__node-body {
-  margin-block-start: var(--s-3);
-  font-size: 0.92rem;
-  color: var(--c-text);
+/* ── Main Editorial Grid / Content ───────────────────────────────────────── */
+.about-editorial__grid {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
-/* ── Breakpoints ─────────────────────────────────────────────────────────── */
+.about-editorial__content {
+  display: flex;
+  flex-direction: column;
+  max-width: 50rem;
+}
+
+.about-editorial__heading {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.4vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--c-ivory, #ece7dc);
+  margin-block-end: clamp(1.2rem, 2vw, 1.75rem);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8);
+}
+
+.about-editorial__heading-secondary {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-weight: 500;
+  font-size: clamp(1.05rem, 1.6vw, 1.32rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  background: var(--grad-gold-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-block-end: clamp(1.75rem, 3vw, 2.75rem);
+  max-width: 44ch;
+}
+
+.about-editorial__description {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: clamp(0.94rem, 1.05vw, 1.04rem);
+  line-height: 1.82;
+  color: var(--c-ivory-soft, #cdc8bd);
+  max-width: 52ch;
+  margin-block-end: 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Large Desktop (min-width: 64rem / 1024px) ───────────────────────────── */
 @media (min-width: 64rem) {
-  .about__grid {
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-    gap: clamp(3rem, 6vw, 6rem);
+  .about-editorial__content {
+    max-width: min(48rem, 54vw);
+  }
+
+  .about-editorial__bg-img {
+    object-position: center 25%;
   }
 }
 
-@media (max-width: 63.999rem) {
-  .about__branch {
-    /* The rail would have nothing meaningful to connect in a single column. */
-    padding-inline-start: 0;
+/* ── Ultra Wide Desktop (min-width: 90rem / 1440px) ──────────────────────── */
+@media (min-width: 90rem) {
+  .about-editorial__heading {
+    font-size: 3.9rem;
   }
 
-  .about__branch::before,
-  .about__dot {
-    display: none;
+  .about-editorial__heading-secondary {
+    font-size: 1.35rem;
+  }
+}
+
+/* ── Tablet (min-width: 48rem and max-width: 63.999rem) ──────────────────── */
+@media (min-width: 48rem) and (max-width: 63.999rem) {
+  .about-editorial__content {
+    max-width: 100%;
+  }
+}
+
+/* ── Mobile (max-width: 47.999rem / 768px) ───────────────────────────────── */
+@media (max-width: 47.999rem) {
+  .about-editorial {
+    padding-block: clamp(4rem, 9vw, 5.5rem) clamp(2rem, 5vw, 3rem);
   }
 
-  .about__grid {
-    grid-template-columns: minmax(0, 1fr);
+  .about-editorial__bg-img {
+    object-position: 75% 0%;
+    opacity: 0.75;
+  }
+
+  .about-editorial__scrim {
+    background:
+      /* Fade top-to-bottom */
+      linear-gradient(
+        to bottom,
+        rgba(4, 7, 10, 0.95) 0%,
+        rgba(4, 7, 10, 0.85) 40%,
+        rgba(4, 7, 10, 0.98) 100%
+      ),
+      /* Clear out the top right so the face is visible */
+      radial-gradient(
+        circle at 85% 15%,
+        transparent 0%,
+        rgba(4, 7, 10, 0.85) 60%
+      );
+  }
+
+  .about-editorial__heading {
+    font-size: clamp(1.75rem, 7.5vw, 2.3rem);
+  }
+
+  .about-editorial__heading-secondary {
+    font-size: 1.05rem;
+    max-width: none;
+    margin-block-end: 1.5rem;
+  }
+
+  .about-editorial__description {
+    max-width: none;
+    font-size: 0.92rem;
+    margin-block-end: 0;
+  }
+
+  .about-editorial__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-block-end: 2rem;
   }
 }
