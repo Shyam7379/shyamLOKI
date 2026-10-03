@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  =============================================================================
+  ICON GLYPH — the single source of truth for the mark as a rasterised icon.
+  =============================================================================
+  This is the "S" spine with three forking branches, exactly as drawn in
+  src/components/brand/Monogram.tsx, but tuned for small sizes: heavier strokes
+  (2.5 vs 1.9) and larger nodes, so the shape still reads after being rasterised
+  down to 16 device pixels in a browser tab.
+
+  `tools/media/build-brand.mjs` reads the <g id="mark"> below and composes it
+  onto two tiles — a rounded one for `public/favicon.svg`, and a full-bleed
+  square one for the PNG icons (apple-touch-icon, manifest icons) because
+  maskable icons must not have transparent corners.
+
+  Run `npm run brand` to regenerate every icon from this file.
+
+  The `<g id="mark">` container carries the 74% scale that keeps the glyph
+  inside the maskable safe zone (the inner 80% circle) — do not remove it.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-labelledby="glyph-title">
+  <title id="glyph-title">Shyam V.</title>
+
+  <g id="mark" transform="translate(20 21.2) scale(0.74) translate(-20 -20)">
+    <!-- The branches — drawn first so the spine reads on top of them. -->
+    <g fill="none" stroke="#bf9f5d" stroke-opacity="0.62" stroke-width="1.3" stroke-linecap="round">
+      <path d="M24.4 6.6C28 5.2 30.9 3.3 33 0.9" />
+      <path d="M12.6 12.4C9.3 11 6.6 8.9 4.6 6.4" />
+      <path d="M25.6 26.9C29.2 28.3 32 30.2 34 32.5" />
+    </g>
+
+    <!-- The spine. -->
+    <path
+      d="M27 11C27 6.5 13 6.5 13 13C13 19.5 27 20 27 26.5C27 33 13 33 13 28.5"
+      fill="none"
+      stroke="#46d69b"
+      stroke-width="2.5"
+      stroke-linecap="round"
+    />
+
+    <!-- Nodes at the branch tips — the moments where a timeline splits. -->
+    <g fill="#e5cd94">
+      <circle cx="34.4" cy="1.4" r="2.6" opacity="0.8" />
+      <circle cx="3.6" cy="5.9" r="2.2" opacity="0.65" />
+      <circle cx="35.2" cy="33.4" r="2.9" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" class="theme-sacred">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>Shyam V. — Full Stack Developer | Architecting Experiences Across Timelines</title>
+    <meta
+      name="description"
+      content="Shyam V. is a Full Stack Developer building meaningful digital experiences across the web. Explore client platforms, application prototypes and AI/RAG projects — each one a branch of the timeline."
+    />
+    <meta name="author" content="Shyam V." />
+    <meta name="theme-color" content="#05070a" />
+    <meta name="color-scheme" content="dark" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Social sharing.
+         NOTE: replace the relative /og-image.jpg path with your absolute deployed URL
+         (e.g. https://your-domain.com/og-image.jpg) once you have a live domain, and add
+         <link rel="canonical" href="https://your-domain.com/" /> at the same time.
+         Crawlers generally require an absolute URL; the relative one works for every
+         local check and degrades to no preview rather than a broken one. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shyam V. — Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Architecting experiences across timelines. Client platforms, application prototypes and AI/RAG projects by Shyam V."
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shyam V. standing among glowing emerald branches that fan out behind him." />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shyam V. — Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Architecting experiences across timelines. Client platforms, application prototypes and AI/RAG projects by Shyam V."
+    />
+    <meta name="twitter:image" content="/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Shyam V. standing among glowing emerald branches that fan out behind him." />
+
+    <!--
+      The hero still is the largest contentful paint, and it is rendered by React
+      rather than sitting in the markup — so it is preloaded here to start the
+      request during HTML parse instead of after the bundle executes.
+
+      Two preloads, each gated by the same breakpoint the <picture> in Hero.tsx
+      uses, so exactly one of them ever matches and the file that is fetched is
+      the file that is shown. (An imagesrcset/imagesizes preload was tried first
+      and did not hold: the preload scanner resolved 100vw against a different
+      viewport than the <img> did, picked the phone poster on a desktop, and the
+      desktop poster was downloaded a second time.)
+
+      Deliberately no <link rel="preload" as="video">: video preload is not
+      reliably supported, and pulling several MB of mp4 at parse time would
+      compete with the poster for bandwidth and push the LCP out.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      href="/media/hero/hero-poster.webp"
+      media="(min-width: 48rem)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/media/hero/hero-poster-mobile.webp"
+      media="(max-width: 47.999rem)"
+      fetchpriority="high"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Shyam V.",
+        "jobTitle": "Full Stack Developer",
+        "email": "mailto:shyamhere2077@gmail.com",
+        "telephone": "+91-8825890738",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Dwarka Doss Goverdhan Doss Vaishnav College"
+        },
+        "knowsAbout": [
+          "Full Stack Development",
+          "Web Development",
+          "UI/UX Design",
+          "Retrieval-Augmented Generation",
+          "Prompt Engineering"
+        ],
+        "sameAs": [
+          "https://github.com/Shyam7379",
+          "https://www.linkedin.com/in/shyam-v-3b6232352/"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div id="root"></div>
+    <noscript>
+      <div class="noscript-fallback">
+        <h1>Shyam V. — Full Stack Developer</h1>
+        <p>
+          This portfolio uses JavaScript for its cinematic timeline presentation. You can still reach
+          me directly:
+        </p>
+        <ul>
+          <li>Email: <a href="mailto:shyamhere2077@gmail.com">shyamhere2077@gmail.com</a></li>
+          <li>Phone: <a href="tel:+918825890738">+91 88258 90738</a></li>
+          <li><a href="https://github.com/Shyam7379">GitHub</a></li>
+          <li>
+            <a href="https://www.linkedin.com/in/shyam-v-3b6232352/">LinkedIn</a>
+          </li>
+        </ul>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

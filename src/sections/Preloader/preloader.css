@@ -1,0 +1,122 @@
+/* =============================================================================
+   INTRO — a short, skippable opening beat
+   ============================================================================= */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(60% 50% at 50% 46%, rgba(28, 125, 91, 0.16) 0%, transparent 68%),
+    #04070a;
+  opacity: 1;
+  transition: opacity var(--dur-4) var(--ease-smooth);
+}
+
+.intro.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro__core {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-4);
+  text-align: center;
+}
+
+.intro__mark {
+  border-radius: 50%;
+  box-shadow: 0 0 32px rgba(28, 125, 91, 0.5), 0 0 16px rgba(191, 159, 93, 0.4);
+  animation: intro-mark 1.5s var(--ease-enter) both;
+}
+
+.intro__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3.4vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--c-ivory);
+  animation: intro-rise 900ms var(--ease-enter) 160ms both;
+}
+
+.intro__role {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-emerald-bright);
+  animation: intro-rise 900ms var(--ease-enter) 300ms both;
+}
+
+/* A timeline drawing itself out of the centre */
+.intro__rule {
+  position: relative;
+  display: block;
+  inline-size: min(16rem, 60vw);
+  block-size: 1px;
+  margin-block-start: var(--s-3);
+  background: rgba(191, 159, 93, 0.16);
+  overflow: hidden;
+}
+
+.intro__rule-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  inline-size: 100%;
+  background: linear-gradient(to right, transparent, var(--c-emerald-bright), transparent);
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  animation: intro-draw 1200ms var(--ease-enter) 240ms both;
+}
+
+.intro__skip {
+  position: absolute;
+  inset-block-end: clamp(1.5rem, 5vh, 3rem);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-text-faint);
+  animation: intro-rise 900ms var(--ease-enter) 620ms both;
+}
+
+@keyframes intro-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.6rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes intro-draw {
+  to {
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+/* Reduced motion never reaches here (the component opts out), but if the
+   preference changes mid-session the animations stop cleanly. */
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+}

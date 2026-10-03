@@ -1,0 +1,34 @@
+{
+  "name": "Shyam V. — Full Stack Developer",
+  "short_name": "Shyam V.",
+  "description": "Cinematic portfolio of Shyam V., Full Stack Developer: client platforms, application prototypes and AI/RAG projects — each one a branch of the timeline.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#04070a",
+  "theme_color": "#04070a",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["portfolio", "developer", "personal"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

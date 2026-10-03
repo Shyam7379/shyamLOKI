@@ -1,0 +1,94 @@
+/* =============================================================================
+   SKILLS — a capability map rather than a chart
+   ============================================================================= */
+
+.skills {
+  background:
+    radial-gradient(70% 50% at 6% 100%, rgba(28, 125, 91, 0.09) 0%, transparent 60%),
+    var(--c-void);
+}
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+  margin-block-start: clamp(2.5rem, 5vw, 4rem);
+}
+
+.skills__card {
+  display: grid;
+  align-content: start;
+  gap: var(--s-4);
+  padding: clamp(1.35rem, 2.4vw, 1.9rem);
+}
+
+.skills__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.skills__glyph {
+  display: grid;
+  place-items: center;
+  inline-size: 2.9rem;
+  block-size: 2.9rem;
+  color: var(--c-emerald-bright);
+  background: linear-gradient(150deg, rgba(47, 168, 122, 0.16), rgba(47, 168, 122, 0.02));
+  border: 1px solid var(--line-emerald);
+  border-radius: var(--r-3);
+  transition:
+    color var(--dur-3) var(--ease-smooth),
+    border-color var(--dur-3) var(--ease-smooth),
+    transform var(--dur-3) var(--ease-enter);
+}
+
+.skills__card:hover .skills__glyph,
+.skills__card:focus-within .skills__glyph {
+  color: var(--c-gold-bright);
+  border-color: var(--line-hair-strong);
+  transform: translate3d(0, -2px, 0);
+}
+
+.skills__index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--ls-label);
+  color: var(--c-gold);
+}
+
+.skills__title {
+  font-size: var(--fs-h4);
+  letter-spacing: 0.03em;
+}
+
+.skills__promise {
+  font-size: 0.92rem;
+  color: var(--c-text);
+}
+
+.skills__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding-block-start: var(--s-3);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* The trace: a gold hairline that draws itself along the bottom edge */
+.skills__trace {
+  position: absolute;
+  inset-inline: 1.5rem;
+  inset-block-end: 0;
+  block-size: 1px;
+  background: linear-gradient(to right, transparent, var(--c-emerald-core), transparent);
+  transform: scaleX(0);
+  transition: transform var(--dur-4) var(--ease-enter);
+  pointer-events: none;
+}
+
+.skills__card:hover .skills__trace,
+.skills__card:focus-within .skills__trace {
+  transform: scaleX(1);
+}

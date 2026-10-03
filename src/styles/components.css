@@ -1,0 +1,383 @@
+/* =============================================================================
+   COMPONENTS — the reusable shorthands of the design system
+   Layout shells, section headings, buttons, cards, chips, dividers, media frames.
+   ============================================================================= */
+
+/* ── Layout shells ───────────────────────────────────────────────────────── */
+.shell {
+  width: 100%;
+  max-width: var(--w-content);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.shell--wide {
+  max-width: var(--w-wide);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+  /* No scroll-margin here on purpose: <html> already carries scroll-padding-top
+     for the fixed nav, and stacking the two would overshoot the anchor by the
+     height of the nav — which also desynchronised the scroll-spy indicator. */
+}
+
+.section--flush-top {
+  padding-top: clamp(2.5rem, 5vw, 5rem);
+}
+
+/* A fine gold rule that fades out at both ends: the signature section break */
+.section::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--gutter);
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(to right,
+      transparent,
+      var(--line-hair) 18%,
+      var(--line-hair) 82%,
+      transparent);
+  pointer-events: none;
+}
+
+.section:last-of-type::after {
+  display: none;
+}
+
+/* ── Eyebrow label (TVA-style technical marker) ─────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+
+.eyebrow::before {
+  content: '';
+  inline-size: clamp(1.25rem, 4vw, 3rem);
+  block-size: 1px;
+  background: linear-gradient(to right, transparent, var(--c-gold));
+  flex: none;
+}
+
+.eyebrow--plain::before {
+  display: none;
+}
+
+/* ── Section heading block ──────────────────────────────────────────────── */
+.sec-head {
+  display: grid;
+  gap: var(--s-5);
+  max-width: 46rem;
+}
+
+.sec-head__title {
+  font-size: var(--fs-h2);
+  letter-spacing: 0.01em;
+}
+
+.sec-head__title em {
+  font-style: normal;
+  color: var(--c-emerald-bright);
+}
+
+.sec-head__lead {
+  font-size: var(--fs-lead);
+  color: var(--c-ivory-soft);
+  max-width: var(--w-prose);
+}
+
+.sec-head__note {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  color: var(--c-text-dim);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.btn {
+  --btn-fg: var(--c-ivory);
+  --btn-bg: transparent;
+  --btn-bd: var(--line-hair-strong);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  min-height: 3rem;
+  /* ≥48px: comfortable touch target */
+  padding: 0.85rem 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bd);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color var(--dur-2) var(--ease-smooth),
+    border-color var(--dur-2) var(--ease-smooth),
+    transform var(--dur-2) var(--ease-enter),
+    box-shadow var(--dur-3) var(--ease-smooth);
+}
+
+/* the travelling emerald sheen on hover — transform only, GPU friendly */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg,
+      rgba(47, 168, 122, 0.9),
+      rgba(70, 214, 155, 0.75) 55%,
+      rgba(28, 125, 91, 0.9));
+  transform: translate3d(0, 101%, 0);
+  transition: transform var(--dur-3) var(--ease-enter);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  color: #04120d;
+  border-color: var(--c-emerald-bright);
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 18px 40px -22px var(--glow-emerald);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translate3d(0, 0, 0);
+}
+
+.btn:active {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Primary — the "EXPLORE MY MAGIC" action */
+.btn--primary {
+  --btn-fg: var(--c-emerald-bright);
+  --btn-bd: rgba(70, 214, 155, 0.42);
+  background: rgba(12, 40, 32, 0.5);
+}
+
+/* Ghost / secondary */
+.btn--ghost {
+  --btn-fg: var(--c-ivory-soft);
+  --btn-bd: var(--line-hair);
+}
+
+/* Text link with an underline that grows out of the left edge */
+.btn--text {
+  min-height: 0;
+  padding: 0.35rem 0;
+  border: none;
+  border-radius: 0;
+  --btn-fg: var(--c-gold);
+  font-size: 0.72rem;
+}
+
+.btn--text::before {
+  inset: auto 0 0 0;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-3) var(--ease-enter);
+}
+
+.btn--text:hover,
+.btn--text:focus-visible {
+  color: var(--c-gold-bright);
+  box-shadow: none;
+  transform: none;
+}
+
+.btn--text:hover::before,
+.btn--text:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.btn__icon {
+  flex: none;
+  transition: transform var(--dur-3) var(--ease-enter);
+}
+
+.btn:hover .btn__icon {
+  transform: translate3d(0.18rem, 0, 0);
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  background: var(--grad-surface);
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+  transition:
+    border-color var(--dur-3) var(--ease-smooth),
+    transform var(--dur-3) var(--ease-enter),
+    box-shadow var(--dur-3) var(--ease-smooth);
+}
+
+/* Emerald energy that traces the top edge on hover */
+.card::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(to right,
+      transparent,
+      var(--c-emerald-core),
+      transparent);
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-smooth);
+  pointer-events: none;
+}
+
+.card--interactive:hover,
+.card--interactive:focus-within {
+  border-color: var(--line-emerald);
+  transform: translate3d(0, -4px, 0);
+  box-shadow: var(--shadow-3), var(--shadow-emerald);
+}
+
+.card--interactive:hover::before,
+.card--interactive:focus-within::before {
+  opacity: 1;
+}
+
+.card__body {
+  padding: clamp(1.35rem, 2.4vw, 2rem);
+}
+
+/* ── Chips (tech tags, categories) ──────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.34rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-ivory-soft);
+  background: rgba(255, 255, 255, 0.026);
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+
+.chip--emerald {
+  color: var(--c-emerald-bright);
+  border-color: var(--line-emerald);
+  background: var(--glow-emerald-soft);
+}
+
+.chip--gold {
+  color: var(--c-gold-bright);
+  border-color: var(--line-hair-strong);
+  background: rgba(191, 159, 93, 0.07);
+}
+
+/* ── Meta row / label-value (TVA readouts) ──────────────────────────────── */
+.readout {
+  display: grid;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+}
+
+.readout__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  justify-content: space-between;
+  padding-block: 0.3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.readout__key {
+  color: var(--c-text-faint);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  font-size: 0.64rem;
+}
+
+.readout__val {
+  color: var(--c-emerald-bright);
+}
+
+/* ── Divider: the branching timeline rule ───────────────────────────────── */
+.divider {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+
+.divider svg {
+  width: min(100%, 40rem);
+  height: auto;
+  overflow: visible;
+}
+
+/* ── Media frame: consistent treatment for every image on the site ──────── */
+.frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-3);
+  background: var(--c-abyss);
+}
+
+.frame img,
+.frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scroll-reveal base state.
+   Scoped under `.js-reveal` (added by main.tsx) so that if the script never
+   runs, nothing is hidden. Toggled to `.is-revealed` by lib/observer.ts. */
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 1.4rem, 0);
+  transition:
+    opacity var(--dur-4) var(--ease-enter),
+    transform var(--dur-4) var(--ease-enter);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.js-reveal [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* Utility: visually hidden but available to assistive tech */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

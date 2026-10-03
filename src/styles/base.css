@@ -1,0 +1,202 @@
+/* =============================================================================
+   BASE — reset, document shell, global element defaults
+   ============================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Anchor targets land below the fixed nav */
+  scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: var(--c-void);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Belt and braces against accidental horizontal overflow */
+  overflow-x: hidden;
+}
+
+/* A permanent, extremely subtle vertical wash so the void is never flat */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--grad-forest-wash);
+}
+
+img,
+video,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--c-ivory);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--c-emerald-bright);
+  text-decoration-color: var(--line-emerald);
+  text-underline-offset: 0.25em;
+  transition: color var(--dur-1) var(--ease-smooth);
+}
+
+a:hover {
+  color: var(--c-gold-bright);
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ── Focus: one visible, high-contrast ring everywhere ───────────────────── */
+:focus-visible {
+  outline: 2px solid var(--c-gold-bright);
+  outline-offset: 3px;
+  border-radius: var(--r-1);
+}
+
+/* Never strip the ring for keyboard users, but don't flash it for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background: rgba(47, 168, 122, 0.34);
+  color: #fff;
+}
+
+/* ── Skip link ───────────────────────────────────────────────────────────── */
+.skip-link {
+  position: fixed;
+  top: var(--s-3);
+  left: var(--s-3);
+  z-index: calc(var(--z-preloader) + 10);
+  padding: var(--s-3) var(--s-5);
+  background: var(--c-gold-bright);
+  color: #14100a;
+  font-weight: 600;
+  border-radius: var(--r-2);
+  transform: translateY(-160%);
+  transition: transform var(--dur-2) var(--ease-enter);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-color: var(--c-ivory);
+}
+
+/* ── No-JS notice (styled from index.html, before React mounts) ─────────── */
+.noscript-fallback {
+  max-width: 40rem;
+  margin: 12vh auto;
+  padding: var(--s-6);
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-4);
+  background: var(--surface-2);
+}
+
+/* ── Scrollbar (WebKit/Blink + Firefox) ─────────────────────────────────── */
+@supports (scrollbar-color: red blue) {
+  html {
+    scrollbar-color: var(--c-emerald) var(--c-void);
+    scrollbar-width: thin;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--c-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--c-emerald), var(--c-forest));
+  border: 2px solid var(--c-void);
+  border-radius: var(--r-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(var(--c-emerald-bright), var(--c-emerald));
+}
+
+/* ── Reduced motion: kill all of it, keep every piece of content ────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Anything hidden purely for an entrance animation must be visible */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

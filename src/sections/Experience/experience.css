@@ -1,0 +1,197 @@
+/* =============================================================================
+   EXPERIENCE — a vertical timeline that illuminates as it is read
+   =============================================================================
+   The rail is one dim line running the height of the list. Each entry lays its
+   own emerald segment over it and scales that segment down from the top when
+   the entry is revealed — so the branch lights up progressively as the visitor
+   scrolls, instead of all at once. Only transform and colour are animated.
+   ============================================================================= */
+
+.experience {
+  background:
+    radial-gradient(70% 50% at 100% 0%, rgba(28, 125, 91, 0.1) 0%, transparent 58%),
+    var(--c-void);
+}
+
+.xp {
+  /* One variable drives the rail position, the lit segment and the node, so the
+     three can never drift apart. The rail itself sits 5px in from this box. */
+  --xp-rail: 5px;
+  --xp-pad: 3.25rem;
+  position: relative;
+  display: grid;
+  gap: clamp(1.25rem, 2.4vw, 2rem);
+  margin-block-start: clamp(2.5rem, 5vw, 4rem);
+  padding-inline-start: var(--xp-pad);
+}
+
+/* The dim trunk */
+.xp::before {
+  content: '';
+  position: absolute;
+  inset-block: 1.5rem 1.5rem;
+  inset-inline-start: var(--xp-rail);
+  inline-size: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--line-hair) 0%,
+    rgba(255, 255, 255, 0.06) 60%,
+    transparent 100%
+  );
+}
+
+.xp__item {
+  position: relative;
+}
+
+/* The lit segment: drawn over the dim trunk, top-down, when revealed */
+.xp__item::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.9rem -1.5rem;
+  inset-inline-start: calc(var(--xp-rail) - var(--xp-pad));
+  inline-size: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--c-emerald-bright) 0%,
+    var(--c-emerald-core) 55%,
+    rgba(47, 168, 122, 0) 100%
+  );
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 900ms var(--ease-enter);
+  transition-delay: var(--reveal-delay, 0ms);
+  pointer-events: none;
+}
+
+.xp__item:last-child::before {
+  inset-block-end: 100%;
+  display: none;
+}
+
+.xp__item.is-revealed::before {
+  transform: scaleY(1);
+}
+
+/* The node that marks the split — centred on the rail via translateX(-50%) */
+.xp__node {
+  position: absolute;
+  inset-block-start: 1.35rem;
+  inset-inline-start: calc(var(--xp-rail) - var(--xp-pad));
+  transform: translateX(-50%);
+  inline-size: 15px;
+  block-size: 15px;
+  border-radius: var(--r-pill);
+  background: var(--c-charcoal-raised);
+  border: 1px solid var(--line-hair-strong);
+  transition:
+    background-color var(--dur-4) var(--ease-smooth),
+    border-color var(--dur-4) var(--ease-smooth),
+    box-shadow var(--dur-4) var(--ease-smooth);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.xp__node::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: var(--r-pill);
+  background: var(--c-text-faint);
+  transition: background-color var(--dur-4) var(--ease-smooth);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.xp__item.is-revealed .xp__node {
+  border-color: var(--c-emerald-bright);
+  box-shadow: 0 0 0 6px var(--glow-emerald-soft);
+}
+
+.xp__item.is-revealed .xp__node::after {
+  background: var(--c-emerald-bright);
+}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.xp__card {
+  padding: clamp(1.35rem, 2.4vw, 2.05rem);
+}
+
+.xp__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.xp__marker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--ls-label);
+  color: var(--c-gold);
+}
+
+.xp__period {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.xp__role {
+  margin-block-start: var(--s-4);
+  font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+}
+
+.xp__org {
+  margin-block-start: 0.3rem;
+  font-size: 0.92rem;
+  color: var(--c-emerald-bright);
+}
+
+.xp__summary {
+  margin-block-start: var(--s-4);
+  max-width: 66ch;
+  font-size: 0.94rem;
+  color: var(--c-text);
+}
+
+.xp__highlights {
+  display: grid;
+  gap: var(--s-3);
+  margin-block-start: var(--s-5);
+  padding-block-start: var(--s-5);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.xp__highlights li {
+  position: relative;
+  padding-inline-start: 1.35rem;
+  max-width: 68ch;
+  font-size: 0.9rem;
+  color: var(--c-ivory-soft);
+}
+
+.xp__highlights li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.62em;
+  inline-size: 0.55rem;
+  block-size: 1px;
+  background: var(--c-gold);
+  opacity: 0.75;
+}
+
+.xp__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-block-start: var(--s-5);
+}
+
+/* ── Breakpoints ─────────────────────────────────────────────────────────── */
+@media (max-width: 47.999rem) {
+  .xp {
+    --xp-pad: 2.25rem;
+  }
+}

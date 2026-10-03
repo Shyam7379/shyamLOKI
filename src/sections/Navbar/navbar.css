@@ -1,0 +1,360 @@
+/* =============================================================================
+   NAVIGATION
+   Transparent over the hero film, then condensing into a translucent charcoal
+   bar with a gold hairline once the visitor starts travelling.
+   ============================================================================= */
+
+.nav {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-nav);
+  transition:
+    background-color var(--dur-3) var(--ease-smooth),
+    border-color var(--dur-3) var(--ease-smooth),
+    box-shadow var(--dur-3) var(--ease-smooth);
+  border-block-end: 1px solid transparent;
+}
+
+/* Over the hero the bar is transparent, so it carries its own soft veil. The
+   supplied footage has bright green highlights along the top edge, and ivory
+   nav type sitting directly on that is not reliably legible. The veil fades
+   away the moment the bar condenses and gets a real background. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  block-size: calc(var(--nav-h) + 3.5rem);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 7, 10, 0.9) 0%,
+    rgba(4, 7, 10, 0.62) 42%,
+    rgba(4, 7, 10, 0.24) 74%,
+    transparent 100%
+  );
+  opacity: 1;
+  transition: opacity var(--dur-3) var(--ease-smooth);
+}
+
+.nav.is-condensed {
+  /* Opaque enough that content sliding underneath never fights the nav labels,
+     translucent enough that it still reads as an overlay on the film. */
+  background: rgba(5, 9, 11, 0.92);
+  border-block-end-color: var(--line-hair);
+  box-shadow: 0 18px 40px -30px rgba(0, 0, 0, 1);
+  backdrop-filter: blur(18px) saturate(130%);
+}
+
+.nav.is-condensed::before {
+  opacity: 0;
+}
+
+.nav__bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  block-size: var(--nav-h);
+}
+
+/* ── Brand ───────────────────────────────────────────────────────────────── */
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: var(--r-2);
+  flex: none;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.wordmark__mark {
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(28, 125, 91, 0.35);
+  transition: transform var(--dur-3) var(--ease-smooth), box-shadow var(--dur-3) var(--ease-smooth);
+}
+
+.nav__brand:hover .wordmark__mark,
+.footer__brand:hover .wordmark__mark {
+  transform: scale(1.08);
+  box-shadow: 0 0 16px rgba(28, 125, 91, 0.6), 0 0 8px rgba(191, 159, 93, 0.45);
+}
+
+.wordmark__text {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-ivory);
+  white-space: nowrap;
+}
+
+.wordmark__dot {
+  color: var(--c-gold);
+}
+
+/* ── Desktop links ───────────────────────────────────────────────────────── */
+.nav__links {
+  display: none;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.6vw, 1.6rem);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.25rem;
+  font-size: 0.83rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  /* ivory-soft, not --c-text: this sits on top of moving footage */
+  color: var(--c-ivory-soft);
+  text-shadow: 0 1px 12px rgba(4, 7, 10, 0.6);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-2) var(--ease-smooth);
+}
+
+/* The active-section indicator: a hairline that grows out of the centre. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 0.2rem;
+  inset-inline: 0.15rem;
+  block-size: 1px;
+  background: linear-gradient(to right, transparent, var(--c-emerald-bright), transparent);
+  transform: scaleX(0);
+  transition: transform var(--dur-3) var(--ease-enter);
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+  color: var(--c-ivory);
+}
+
+.nav__link.is-active {
+  color: var(--c-emerald-bright);
+}
+
+.nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ── Tail: CTA + burger ──────────────────────────────────────────────────── */
+.nav__tail {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex: none;
+}
+
+.nav__cta {
+  display: none;
+  min-height: 2.6rem;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.68rem;
+}
+
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.85rem;
+  block-size: 2.85rem;
+  color: var(--c-ivory);
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-2);
+  background: rgba(5, 9, 11, 0.4);
+  transition:
+    color var(--dur-2) var(--ease-smooth),
+    border-color var(--dur-2) var(--ease-smooth);
+}
+
+.nav__toggle:hover {
+  color: var(--c-gold-bright);
+  border-color: var(--line-hair-strong);
+}
+
+/* ── Reading progress ────────────────────────────────────────────────────── */
+.nav__progress {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  block-size: 1px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-smooth);
+}
+
+.nav.is-condensed .nav__progress {
+  opacity: 1;
+}
+
+.nav__progress-fill {
+  display: block;
+  block-size: 100%;
+  transform-origin: left center;
+  background: linear-gradient(to right, var(--c-emerald-core), var(--c-emerald-bright), var(--c-gold));
+}
+
+/* ── Mobile drawer ───────────────────────────────────────────────────────── */
+.nav__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-drawer) - 1);
+  background: rgba(3, 5, 7, 0.72);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-3) var(--ease-smooth),
+    visibility var(--dur-3);
+}
+
+.nav__scrim.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: var(--z-drawer);
+  inline-size: min(22rem, 88vw);
+  display: grid;
+  align-content: start;
+  gap: var(--s-6);
+  padding: calc(var(--nav-h) + 1.5rem) var(--s-6) var(--s-6);
+  background: linear-gradient(200deg, #0b1416 0%, #060b0d 60%, #04080a 100%);
+  border-inline-start: 1px solid var(--line-hair);
+  box-shadow: -30px 0 80px -40px rgba(0, 0, 0, 1);
+  transform: translate3d(100%, 0, 0);
+  transition: transform var(--dur-3) var(--ease-enter);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.nav__drawer.is-open {
+  transform: translate3d(0, 0, 0);
+}
+
+.nav__drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.nav__drawer-label {
+  color: var(--c-text-dim);
+}
+
+.nav__drawer-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.85rem;
+  block-size: 2.85rem;
+  margin-inline-end: calc(var(--s-2) * -1);
+  color: var(--c-ivory-soft);
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-2);
+  transition:
+    color var(--dur-2) var(--ease-smooth),
+    border-color var(--dur-2) var(--ease-smooth);
+}
+
+.nav__drawer-close:hover,
+.nav__drawer-close:focus-visible {
+  color: var(--c-gold-bright);
+  border-color: var(--line-hair-strong);
+}
+
+.nav__drawer-list {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.nav__drawer-link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  padding: 0.85rem 0.5rem;
+  min-height: 3rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  color: var(--c-ivory-soft);
+  text-decoration: none;
+  border-block-end: 1px solid rgba(255, 255, 255, 0.045);
+  transition:
+    color var(--dur-2) var(--ease-smooth),
+    padding-inline-start var(--dur-3) var(--ease-enter);
+}
+
+.nav__drawer-link:hover,
+.nav__drawer-link:focus-visible {
+  color: var(--c-gold-bright);
+  padding-inline-start: 1rem;
+}
+
+.nav__drawer-link.is-active {
+  color: var(--c-emerald-bright);
+}
+
+.nav__drawer-index {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--c-text-faint);
+}
+
+.nav__drawer-foot {
+  display: grid;
+  gap: var(--s-4);
+  justify-items: start;
+  margin-block-start: var(--s-3);
+}
+
+.nav__drawer-mail {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--c-text-dim);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.nav__drawer-mail:hover {
+  color: var(--c-emerald-bright);
+}
+
+/* ── Breakpoints ─────────────────────────────────────────────────────────── */
+@media (min-width: 64rem) {
+  .nav__links,
+  .nav__cta {
+    display: flex;
+  }
+
+  .nav__toggle,
+  .nav__drawer,
+  .nav__scrim {
+    display: none;
+  }
+}

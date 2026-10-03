@@ -1,0 +1,233 @@
+/* =============================================================================
+   ABOUT — the person behind the timeline
+   Two columns on desktop: the story, and the branch that produced it.
+   ============================================================================= */
+
+.about {
+  background:
+    radial-gradient(90% 60% at 88% 0%, rgba(28, 125, 91, 0.1) 0%, transparent 58%),
+    var(--c-void);
+}
+
+.about__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.about__copy {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.about__prose {
+  display: grid;
+  gap: var(--s-5);
+  max-width: var(--w-prose);
+  color: var(--c-text);
+}
+
+.about__prose strong {
+  color: var(--c-ivory);
+  font-weight: 600;
+}
+
+/* The first paragraph leads; give it a touch more presence. */
+.about__prose p:first-child {
+  font-size: var(--fs-lead);
+  color: var(--c-ivory-soft);
+}
+
+/* ── Fact strip ──────────────────────────────────────────────────────────── */
+.about__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: var(--s-1) var(--s-5);
+  padding-block-start: var(--s-5);
+  border-block-start: 1px solid var(--line-hair);
+}
+
+.about__fact {
+  display: grid;
+  gap: 0.15rem;
+  padding-block: var(--s-3);
+}
+
+.about__fact dt {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-text-faint);
+}
+
+.about__fact dd {
+  font-size: 0.94rem;
+  color: var(--c-ivory);
+}
+
+/* ── The branch column ───────────────────────────────────────────────────── */
+.about__branch {
+  /* Distance from the column edge to the node cards. The trunk sits at 5px. */
+  --rail-gap: clamp(1.75rem, 4vw, 2.5rem);
+  position: relative;
+  display: grid;
+  gap: var(--s-6);
+  padding-inline-start: var(--rail-gap);
+}
+
+/* The trunk: a hairline that starts as emerald and cools to gold as it
+   descends past the education and internship nodes. */
+.about__branch::before {
+  content: '';
+  position: absolute;
+  inset-block: 1.5rem 3rem;
+  inset-inline-start: 5px;
+  inline-size: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(47, 168, 122, 0) 0%,
+    rgba(47, 168, 122, 0.5) 12%,
+    rgba(47, 168, 122, 0.4) 55%,
+    rgba(191, 159, 93, 0.34) 100%
+  );
+  pointer-events: none;
+}
+
+.about__slot {
+  position: relative;
+}
+
+/* A node on the trunk, one per moment that shaped the work.
+   `5px - var(--rail-gap)` puts the dot's centre exactly on the 5px rail once
+   the -50% translate is applied, independent of the gap clamp. */
+.about__dot {
+  position: absolute;
+  inset-block-start: 1.55rem;
+  inset-inline-start: calc(5px - var(--rail-gap));
+  transform: translateX(-50%);
+  inline-size: 0.66rem;
+  block-size: 0.66rem;
+  border-radius: var(--r-pill);
+  background: var(--c-charcoal-raised);
+  border: 1px solid var(--line-hair-strong);
+  box-shadow: 0 0 0 4px var(--c-void);
+}
+
+.about__dot--emerald {
+  background: var(--c-emerald-bright);
+  border-color: var(--c-emerald-bright);
+  box-shadow: 0 0 0 4px var(--c-void), 0 0 0 8px var(--glow-emerald-soft);
+}
+
+.about__portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-4);
+}
+
+.about__portrait img {
+  /* The portrait is naturally a portrait crop; keep the face in frame. */
+  object-position: center 22%;
+  /* Pulled towards the site palette so a bright indoor snapshot sits inside a
+     near-black emerald page instead of fighting it. Nothing is painted over
+     his face — no compositing, no generated detail. */
+  filter: saturate(0.74) contrast(1.08) brightness(0.82);
+}
+
+/* Emerald vignette + bottom falloff, blended normally so the likeness is
+   untouched where it matters. */
+.about__portrait::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 6%, rgba(28, 125, 91, 0.26) 0%, transparent 58%),
+    radial-gradient(130% 100% at 50% 50%, transparent 42%, rgba(4, 7, 10, 0.72) 100%);
+}
+
+.about__portrait-cap {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: 2;
+  display: grid;
+  gap: 0.2rem;
+  padding: var(--s-6) var(--s-5) var(--s-5);
+  background: linear-gradient(to top, rgba(4, 7, 10, 0.94) 0%, rgba(4, 7, 10, 0.6) 52%, transparent 100%);
+}
+
+.about__portrait-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-ivory);
+}
+
+.about__portrait-role {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-emerald-bright);
+}
+
+/* ── Education / internship nodes ───────────────────────────────────────── */
+.about__node {
+  position: relative;
+  padding: clamp(1.2rem, 2.2vw, 1.75rem);
+}
+
+.about__node-label {
+  gap: var(--s-2);
+  color: var(--c-gold);
+  margin-block-end: var(--s-3);
+}
+
+.about__node-title {
+  font-size: 1.06rem;
+  line-height: 1.35;
+  letter-spacing: 0.015em;
+}
+
+.about__node-meta {
+  margin-block-start: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-emerald-bright);
+}
+
+.about__node-body {
+  margin-block-start: var(--s-3);
+  font-size: 0.92rem;
+  color: var(--c-text);
+}
+
+/* ── Breakpoints ─────────────────────────────────────────────────────────── */
+@media (min-width: 64rem) {
+  .about__grid {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+@media (max-width: 63.999rem) {
+  .about__branch {
+    /* The rail would have nothing meaningful to connect in a single column. */
+    padding-inline-start: 0;
+  }
+
+  .about__branch::before,
+  .about__dot {
+    display: none;
+  }
+
+  .about__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
