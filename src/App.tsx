@@ -8,6 +8,7 @@ import { Projects } from './sections/Projects/Projects';
 import { Experience } from './sections/Experience/Experience';
 import { Contact } from './sections/Contact/Contact';
 import { Footer } from './sections/Footer/Footer';
+import { CustomCursor } from './components/ui/CustomCursor';
 
 /**
  * Honour a deep link once the sections actually exist.
@@ -48,6 +49,7 @@ export function App() {
 
   return (
     <>
+      <CustomCursor />
       <Preloader />
       <Navbar />
 
