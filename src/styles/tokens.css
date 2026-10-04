@@ -179,6 +179,12 @@
   --z-drawer: 80;
   --z-preloader: 100;
 
+  /* ── Cursor ────────────────────────────────────────────────────────────── */
+  --cursor-loki: -webkit-image-set(url('/loki_cursor.png') 1x, url('/loki_cursor_2x.png') 2x) 3 3,
+                 image-set(url('/loki_cursor.png') 1x, url('/loki_cursor_2x.png') 2x) 3 3,
+                 url('/loki_cursor.png') 3 3,
+                 auto;
+
   color-scheme: dark;
 }
 
