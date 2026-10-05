@@ -17,6 +17,7 @@ html {
   scroll-behavior: smooth;
   /* Anchor targets land below the fixed nav */
   scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+  cursor: var(--cursor-loki);
 }
 
 body {
@@ -33,6 +34,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* Belt and braces against accidental horizontal overflow */
   overflow-x: hidden;
+  cursor: var(--cursor-loki);
 }
 
 /* A permanent, extremely subtle vertical wash so the void is never flat */
@@ -78,6 +80,7 @@ a {
   color: var(--c-emerald-bright);
   text-decoration-color: var(--line-emerald);
   text-underline-offset: 0.25em;
+  cursor: pointer;
   transition: color var(--dur-1) var(--ease-smooth);
 }
 
